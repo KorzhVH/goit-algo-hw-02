@@ -1,0 +1,40 @@
+from queue import Queue
+import time, random
+
+queue = Queue()
+
+class Request:
+    def __init__(self, sleep_time):
+        self.sleep_time = sleep_time
+
+
+def generate_request():
+    for i in range(random.randint(3, 10)):
+        req = Request(random.randint(1, 4))
+        queue.put(req)
+
+def process_request():
+    if queue.empty():
+        print("queue is empty")
+    else:
+        while not queue.empty():
+            request = queue.get()
+            print(f'Processing request. Estimated time - {request.sleep_time} seconds')
+            time.sleep(request.sleep_time)
+
+
+def main():
+    print("commands: \ngenerate\nprocess\nend")
+    cmd = str(input("Enter command\n"))
+    if cmd.lower() == "generate":
+        generate_request()
+        return main()
+    if cmd.lower() == "process":
+        process_request()
+        return main()
+    if cmd == 'end':
+        print('Bye')
+        return 0
+
+
+main()
