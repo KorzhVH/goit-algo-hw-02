@@ -1,0 +1,14 @@
+from collections import deque
+
+def palindrome_master(text):
+    new_text = text.lower().replace(' ', '')
+    d = deque()
+    for i in new_text:
+        d.append(i)
+    while len(d)>=2:
+        right = d.pop()
+        left = d.popleft()
+        if right != left:
+            print("Not a palindrome!")
+            return 0
+    print("It's a palindrome!")
